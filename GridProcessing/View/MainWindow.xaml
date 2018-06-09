@@ -1,0 +1,44 @@
+﻿<Window x:Class="GridProcessing.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GridProcessing"
+        xmlns:vm="clr-namespace:GridProcessing.ViewModel"
+        xmlns:model="clr-namespace:GridProcessing.Model"
+        mc:Ignorable="d"
+        Title="Grid" Height="500" Width="600">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="2" >
+            <TextBlock Text="Размер сетки:" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+            <ComboBox SelectedIndex="{Binding CurrentGrid,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                <ComboBoxItem Content="400"/>
+                <ComboBoxItem Content="900"/>
+                <ComboBoxItem Content="1600"/>
+            </ComboBox>
+            <Button Content="Следующий шаг" Command="{Binding NextStep}" DockPanel.Dock="Right"/>
+            <TextBlock Text="Принцип работы:" VerticalAlignment="Center"/>
+            <ComboBox SelectedIndex="{Binding CurrentConverter}">
+                <ComboBoxItem Content="Последовательно закрашивать по клетке"/>
+                <ComboBoxItem Content="Отразить"/>
+                <ComboBoxItem Content="Принцип игры жизнь" IsEnabled="False"/>
+            </ComboBox>
+        </DockPanel>
+        <ItemsControl Name="IC" ItemsSource="{Binding Panel.Grid}" Margin="5">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <model:MatrixBorder Background="AliceBlue" State="{Binding Value,Mode=TwoWay}" BorderThickness="1" ActiveBrush="Aqua" InactiveBrush="Azure" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid >
+                    </UniformGrid>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </DockPanel>
+</Window>
