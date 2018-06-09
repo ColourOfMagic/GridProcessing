@@ -31,6 +31,7 @@ namespace GridProcessing.ViewModel
                 currentConverter = value;
                 if (value == 0) Panel.Converter = new StepByStepConverter();
                 if (value == 1) Panel.Converter = new ReverseConverter();
+                if (value==2) Panel.Converter = new WallToWallConverter();
                 OnPropertyChanged("CurrentConverter");
             }
         }

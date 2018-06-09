@@ -24,6 +24,7 @@
             <ComboBox SelectedIndex="{Binding CurrentConverter}">
                 <ComboBoxItem Content="Последовательно закрашивать по клетке"/>
                 <ComboBoxItem Content="Отразить"/>
+                <ComboBoxItem Content="Стенка на стенку"/>
                 <ComboBoxItem Content="Принцип игры жизнь" IsEnabled="False"/>
             </ComboBox>
         </DockPanel>

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 
 namespace GridProcessing.Model
 {
@@ -21,7 +22,7 @@ namespace GridProcessing.Model
         }
         public ValueItem(int i)
         {
-            Value = i;   
+            Value = i;
         }
     }
 
@@ -41,7 +42,7 @@ namespace GridProcessing.Model
         }
     }
 
-    
+
 
     public class StepByStepConverter : IConverter<ValueItem>
     {
@@ -69,6 +70,32 @@ namespace GridProcessing.Model
                     list[i].Value = 1;
                 }
                 else list[i].Value = 0;
+            }
+        }
+    }
+
+    public class WallToWallConverter : IConverter<ValueItem>
+    {
+        public void NextStep(Collection<ValueItem> list)
+        {
+            int side = (int)Math.Sqrt(list.Count);
+            for (int i = 0; i < side; i++)
+            {
+                if (list[i].Value == 0)
+                {
+                    PaintColumn(list, side, i);
+                    PaintColumn(list, side, side - i-1);
+                    return;
+                }
+            }
+
+        }
+
+        void PaintColumn(Collection<ValueItem> list, int side, int column)
+        {
+            for (int i = 0; i < side; i++)
+            {
+                list[i * side + column].Value = 1;
             }
         }
     }
