@@ -18,7 +18,7 @@ namespace GridProcessing.ViewModel
                 if (value == 0) Panel.Grid = GetCollection(400);
                 if (value == 1) Panel.Grid = GetCollection(900);
                 if (value == 2) Panel.Grid = GetCollection(1600);
-                OnPropertyChanged("CurrentGrid"); 
+                OnPropertyChanged("CurrentGrid");
                 OnPropertyChanged("Panel");
 
             }
@@ -31,7 +31,8 @@ namespace GridProcessing.ViewModel
                 currentConverter = value;
                 if (value == 0) Panel.Converter = new StepByStepConverter();
                 if (value == 1) Panel.Converter = new ReverseConverter();
-                if (value==2) Panel.Converter = new WallToWallConverter();
+                if (value == 2) Panel.Converter = new WallToWallConverter();
+                if (value == 3) Panel.Converter = new LifeConverter();
                 OnPropertyChanged("CurrentConverter");
             }
         }
@@ -39,7 +40,7 @@ namespace GridProcessing.ViewModel
         ObservableCollection<ValueItem> GetCollection(int amount)
         {
             ObservableCollection<ValueItem> values = new ObservableCollection<ValueItem>();
-            for (int i=0; i<amount; i++)
+            for (int i = 0; i < amount; i++)
             {
                 values.Add(new ValueItem(0));
             }
@@ -50,7 +51,7 @@ namespace GridProcessing.ViewModel
         {
             Panel = new LifePanel(new ObservableCollection<ValueItem>(), new ReverseConverter()); //Временная мера
             CurrentGrid = 0;
-            CurrentConverter = 0;
+            CurrentConverter = 3;
         }
 
         #region Command

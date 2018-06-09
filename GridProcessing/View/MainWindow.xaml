@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:GridProcessing.ViewModel"
         xmlns:model="clr-namespace:GridProcessing.Model"
         mc:Ignorable="d"
-        Title="Grid" Height="500" Width="600">
+        Title="Grid" Height="593" Width="650">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -25,10 +25,10 @@
                 <ComboBoxItem Content="Последовательно закрашивать по клетке"/>
                 <ComboBoxItem Content="Отразить"/>
                 <ComboBoxItem Content="Стенка на стенку"/>
-                <ComboBoxItem Content="Принцип игры жизнь" IsEnabled="False"/>
+                <ComboBoxItem Content="Принцип игры жизнь" />
             </ComboBox>
         </DockPanel>
-        <ItemsControl Name="IC" ItemsSource="{Binding Panel.Grid}" Margin="5">
+        <ItemsControl Name="IC" ItemsSource="{Binding Panel.Grid}" Margin="5" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <model:MatrixBorder Background="AliceBlue" State="{Binding Value,Mode=TwoWay}" BorderThickness="1" ActiveBrush="Aqua" InactiveBrush="Azure" />
@@ -36,8 +36,7 @@
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid >
-                    </UniformGrid>
+                    <UniformGrid/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
