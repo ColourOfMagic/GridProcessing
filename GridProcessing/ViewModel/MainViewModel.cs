@@ -1,5 +1,7 @@
 ﻿using GridProcessing.Model;
+using System;
 using System.Collections.ObjectModel;
+using System.Windows.Threading;
 
 namespace GridProcessing.ViewModel
 {
@@ -7,8 +9,22 @@ namespace GridProcessing.ViewModel
     {
         int currentGrid;
         int currentConverter;
+        int interval;
 
         public LifePanel Panel { get; set; }
+        public DispatcherTimer Timer { get; set; }
+        public  TimeSpan TestSpan { get; set; }
+        public int Interval
+        {
+            get => interval;
+            set
+            {
+                interval = value;
+                OnPropertyChanged("Interval");
+                Timer.Interval = new TimeSpan(value * 10000);
+            }
+        }
+
         public int CurrentGrid
         {
             get => currentGrid;
@@ -52,6 +68,10 @@ namespace GridProcessing.ViewModel
             Panel = new LifePanel(new ObservableCollection<ValueItem>(), new ReverseConverter()); //Временная мера
             CurrentGrid = 0;
             CurrentConverter = 3;
+
+            Timer = new DispatcherTimer();
+            Timer.Tick +=(sender,e) => Panel.NextStep();
+            Interval = 1000;
         }
 
         #region Command
@@ -70,10 +90,64 @@ namespace GridProcessing.ViewModel
                     (obj) =>
                     {
                         Panel.NextStep();
+                    },(obj)=>!Timer.IsEnabled));
+            }
+        }
+
+
+        private RelayCommand resetGrid;
+
+        /// <summary>
+        /// Gets the Reset.
+        /// </summary>
+        public RelayCommand Reset
+        {
+            get
+            {
+                return resetGrid
+                    ?? (resetGrid = new RelayCommand(
+                    (obj) =>
+                    {
+                        for (int i = 0; i < Panel.Grid.Count; Panel.Grid[i].Value = 0, i++) ;
                     }));
             }
         }
 
+        private RelayCommand startTimer;
+
+        /// <summary>
+        /// Gets the Start.
+        /// </summary>
+        public RelayCommand Start
+        {
+            get
+            {
+                return startTimer
+                    ?? (startTimer = new RelayCommand(
+                    (obj) =>
+                    {
+                        Timer.Start();
+                    },(a)=>!Timer.IsEnabled));
+            }
+        }
+
+        private RelayCommand stopTimer;
+
+        /// <summary>
+        /// Gets the Stop.
+        /// </summary>
+        public RelayCommand Stop
+        {
+            get
+            {
+                return stopTimer
+                    ?? (stopTimer = new RelayCommand(
+                    (obj) =>
+                    {
+                        Timer.Stop();
+                    },(obj)=>Timer.IsEnabled));
+            }
+        }
         #endregion
     }
 }

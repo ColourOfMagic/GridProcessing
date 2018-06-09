@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:GridProcessing.ViewModel"
         xmlns:model="clr-namespace:GridProcessing.Model"
         mc:Ignorable="d"
-        Title="Grid" Height="593" Width="650">
+        Title="Grid" Height="594.5" Width="755">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -19,15 +19,24 @@
                 <ComboBoxItem Content="900"/>
                 <ComboBoxItem Content="1600"/>
             </ComboBox>
-            <Button Content="Следующий шаг" Command="{Binding NextStep}" DockPanel.Dock="Right"/>
-            <TextBlock Text="Принцип работы:" VerticalAlignment="Center"/>
-            <ComboBox SelectedIndex="{Binding CurrentConverter}">
+            <TextBlock Text="Принцип работы:" VerticalAlignment="Center" Margin="10,0,2,0" />
+            <ComboBox SelectedIndex="{Binding CurrentConverter}" MaxWidth="300"  HorizontalAlignment="Left">
                 <ComboBoxItem Content="Последовательно закрашивать по клетке"/>
                 <ComboBoxItem Content="Отразить"/>
                 <ComboBoxItem Content="Стенка на стенку"/>
                 <ComboBoxItem Content="Принцип игры жизнь" />
             </ComboBox>
         </DockPanel>
+        <StackPanel Name="SettPanel" DockPanel.Dock="Right" Width="154" Margin="2">
+            <TextBlock Text="Управление" HorizontalAlignment="Center" FontSize="20"/>
+            <Button Content="Один шаг" Margin="1" Command="{Binding NextStep}"/>
+            <TextBlock Text="Таймер" HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,0"/>
+            <Button Content="Старт" Margin="1" Command="{Binding Start}"/>
+            <Button Content="Стоп" Margin="1" Command="{Binding Stop}"/>
+            <TextBlock Text="{Binding Interval, StringFormat= Cкорость:{0} мс }"/>
+            <Slider  Margin="1" Maximum="1000" Value="{Binding Interval}" TickFrequency="0" LargeChange="250" Minimum="10"/>
+            <Button Content="Сброс" Margin="1" Command="{Binding Reset}"/>
+        </StackPanel>
         <ItemsControl Name="IC" ItemsSource="{Binding Panel.Grid}" Margin="5" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
