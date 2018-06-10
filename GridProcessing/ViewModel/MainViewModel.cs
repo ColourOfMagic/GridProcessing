@@ -11,7 +11,8 @@ namespace GridProcessing.ViewModel
         int currentGrid;
         int currentConverter;
         int interval;
-        
+        FileWorker fileWorker;
+
         public LifePanel Panel { get; set; }
         public DispatcherTimer Timer { get; set; }
         public  TimeSpan TestSpan { get; set; }
@@ -25,7 +26,6 @@ namespace GridProcessing.ViewModel
                 Timer.Interval = new TimeSpan(value * 10000);
             }
         }
-
         public int CurrentGrid
         {
             get => currentGrid;
@@ -53,6 +53,7 @@ namespace GridProcessing.ViewModel
                 OnPropertyChanged("CurrentConverter");
             }
         }
+        
 
         ObservableCollection<ValueItem> GetCollection(int amount)
         {
@@ -67,6 +68,7 @@ namespace GridProcessing.ViewModel
         public MainViewModel()
         {
             Panel = new LifePanel(new ObservableCollection<ValueItem>(), new ReverseConverter()); //Временная мера
+            fileWorker = new FileWorker(new TxtHangler());
             CurrentGrid = 0;
             CurrentConverter = 3;
 
@@ -147,6 +149,42 @@ namespace GridProcessing.ViewModel
                     {
                         Timer.Stop();
                     },(obj)=>Timer.IsEnabled));
+            }
+        }
+
+        private RelayCommand saveCommand;
+
+        /// <summary>
+        /// Gets the Save.
+        /// </summary>
+        public RelayCommand Save
+        {
+            get
+            {
+                return saveCommand
+                    ?? (saveCommand = new RelayCommand(
+                    (obj) =>
+                    {
+                        fileWorker.Save(Panel.Grid);
+                    }));
+            }
+        }
+
+        private RelayCommand loadGrid;
+
+        /// <summary>
+        /// Gets the Load.
+        /// </summary>
+        public RelayCommand Load
+        {
+            get
+            {
+                return loadGrid
+                    ?? (loadGrid = new RelayCommand(
+                    (obj) =>
+                    {
+                       Panel.Grid= fileWorker.Load();
+                    }));
             }
         }
         #endregion

@@ -61,6 +61,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\FileWorker.cs" />
     <Compile Include="Model\GridConversion.cs" />
     <Compile Include="Model\ModelVievBase.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

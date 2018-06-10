@@ -26,10 +26,19 @@ namespace GridProcessing.Model
         }
     }
 
-    public class LifePanel
+    public class LifePanel :ModelVievBase
     {
+        Collection<ValueItem> coll;
         public IConverter<ValueItem> Converter { get; set; }
-        public Collection<ValueItem> Grid { get; set; }
+        public Collection<ValueItem> Grid
+        {
+            get => coll;
+            set
+            {
+                coll = value;
+                OnPropertyChanged("Grid");
+            }
+        }
         public LifePanel(Collection<ValueItem> grid, IConverter<ValueItem> converter)
         {
             Grid = grid;

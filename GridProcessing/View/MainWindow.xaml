@@ -37,11 +37,17 @@
             <TextBlock Text="{Binding Interval, StringFormat= Cкорость:{0} мс }"/>
             <Slider  Margin="1" Maximum="1000" Value="{Binding Interval}" TickFrequency="0" LargeChange="250" Minimum="10"/>
             <Button Content="Сброс" Margin="1" Command="{Binding Reset}"/>
+            <GroupBox Header="Работа с файлами" Margin="0,50,0,0">
+                <StackPanel>
+                    <Button Content="Сохранить" Margin="1,10,1,1" Command="{Binding Save}"/>
+                    <Button Content="Загрузить" Margin="1,10,1,1" Command="{Binding Load}"/>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
         <ItemsControl Name="IC" ItemsSource="{Binding Panel.Grid}" Margin="5" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <model:MatrixBorder Background="AliceBlue" State="{Binding Value,Mode=TwoWay}" BorderThickness="1" ActiveBrush="Aqua" InactiveBrush="Azure" />
+                    <model:MatrixBorder State="{Binding Value,Mode=TwoWay}" BorderThickness="1" ActiveBrush="Aqua" InactiveBrush="Azure" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
