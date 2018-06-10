@@ -18,6 +18,7 @@
                 <ComboBoxItem Content="400"/>
                 <ComboBoxItem Content="900"/>
                 <ComboBoxItem Content="1600"/>
+                <ComboBoxItem Content="3600"/>
             </ComboBox>
             <TextBlock Text="Принцип работы:" VerticalAlignment="Center" Margin="10,0,2,0" />
             <ComboBox SelectedIndex="{Binding CurrentConverter}" MaxWidth="300"  HorizontalAlignment="Left">

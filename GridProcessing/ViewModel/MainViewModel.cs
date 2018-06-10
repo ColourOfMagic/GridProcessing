@@ -5,12 +5,13 @@ using System.Windows.Threading;
 
 namespace GridProcessing.ViewModel
 {
+
     class MainViewModel : ModelVievBase
     {
         int currentGrid;
         int currentConverter;
         int interval;
-
+        
         public LifePanel Panel { get; set; }
         public DispatcherTimer Timer { get; set; }
         public  TimeSpan TestSpan { get; set; }
@@ -34,9 +35,9 @@ namespace GridProcessing.ViewModel
                 if (value == 0) Panel.Grid = GetCollection(400);
                 if (value == 1) Panel.Grid = GetCollection(900);
                 if (value == 2) Panel.Grid = GetCollection(1600);
+                if (value == 3) Panel.Grid = GetCollection(3600);
                 OnPropertyChanged("CurrentGrid");
                 OnPropertyChanged("Panel");
-
             }
         }
         public int CurrentConverter
