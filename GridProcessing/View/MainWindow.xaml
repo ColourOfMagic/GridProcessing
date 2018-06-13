@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:GridProcessing.ViewModel"
         xmlns:model="clr-namespace:GridProcessing.Model"
         mc:Ignorable="d"
-        Title="Grid" Height="594.5" Width="755">
+        Title="GridProcessing" Height="594.5" Width="755">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -28,22 +28,24 @@
                 <ComboBoxItem Content="Принцип игры жизнь" />
             </ComboBox>
         </DockPanel>
-        <StackPanel Name="SettPanel" DockPanel.Dock="Right" Width="154" Margin="2">
-            <TextBlock Text="Управление" HorizontalAlignment="Center" FontSize="20"/>
-            <Button Content="Один шаг" Margin="1" Command="{Binding NextStep}"/>
-            <TextBlock Text="Таймер" HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,0"/>
-            <Button Content="Старт" Margin="1" Command="{Binding Start}"/>
-            <Button Content="Стоп" Margin="1" Command="{Binding Stop}"/>
-            <TextBlock Text="{Binding Interval, StringFormat= Cкорость:{0} мс }"/>
-            <Slider  Margin="1" Maximum="1000" Value="{Binding Interval}" TickFrequency="0" LargeChange="250" Minimum="10"/>
-            <Button Content="Сброс" Margin="1" Command="{Binding Reset}"/>
-            <GroupBox Header="Работа с файлами" Margin="0,50,0,0">
+        <DockPanel Name="SettPanel" DockPanel.Dock="Right" Width="154" Margin="2">
+            <StackPanel DockPanel.Dock="Top">
+                <TextBlock Text="Управление" HorizontalAlignment="Center" FontSize="20"/>
+                <Button Content="Один шаг" Margin="1" Command="{Binding NextStep}"/>
+                <TextBlock Text="Таймер" HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,0"/>
+                <Button Content="Старт" Margin="1" Command="{Binding Start}"/>
+                <Button Content="Стоп" Margin="1" Command="{Binding Stop}"/>
+                <TextBlock Text="{Binding Interval, StringFormat= Cкорость:{0} мс }"/>
+                <Slider  Margin="1" Maximum="1000" Value="{Binding Interval}" TickFrequency="0" LargeChange="250" Minimum="10"/>
+                <Button Content="Сброс" Margin="1" Command="{Binding Reset}"/>
+            </StackPanel>
+            <GroupBox Header="Работа с файлами"  DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
                 <StackPanel>
                     <Button Content="Сохранить" Margin="1,10,1,1" Command="{Binding Save}"/>
                     <Button Content="Загрузить" Margin="1,10,1,1" Command="{Binding Load}"/>
                 </StackPanel>
             </GroupBox>
-        </StackPanel>
+        </DockPanel>
         <ItemsControl Name="IC" ItemsSource="{Binding Panel.Grid}" Margin="5" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
